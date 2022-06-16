@@ -10,7 +10,7 @@ import Foundation
 import Starscream
 
 class StarscreamWebSocket: WebSocketProvider {
-
+    
     var delegate: WebSocketProviderDelegate?
     private let socket: WebSocket
     
@@ -26,6 +26,10 @@ class StarscreamWebSocket: WebSocketProvider {
     func send(data: Data) {
         self.socket.write(data: data)
     }
+    
+    func close() {
+        self.socket.disconnect(forceTimeout: 2, closeCode: 1000 /*normal close*/)
+    }
 }
 
 extension StarscreamWebSocket: Starscream.WebSocketDelegate {
@@ -34,7 +38,7 @@ extension StarscreamWebSocket: Starscream.WebSocketDelegate {
     }
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        self.delegate?.webSocketDidDisconnect(self)
+        self.delegate?.webSocketDidDisconnect(self, error: error)
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
@@ -42,7 +46,7 @@ extension StarscreamWebSocket: Starscream.WebSocketDelegate {
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        self.delegate?.webSocket(self, didReceiveData: data)
+        self.delegate?.webSocketDidReceiveData(self, data: data)
     }
     
     

@@ -11,9 +11,11 @@ import WebRTC
 
 protocol SignalClientDelegate: AnyObject {
     func signalClientDidConnect(_ signalClient: SignalingClient)
-    func signalClientDidDisconnect(_ signalClient: SignalingClient)
+    func signalClientDidDisconnect(_ signalClient: SignalingClient, error: Error?)
+    func signalClientDidReceiveError(_ signalClient: SignalingClient, error: Error?)
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription)
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate)
+    func signalClient(_ signalClient: SignalingClient, didReceiveConfig config: RTCConfiguration)
 }
 
 final class SignalingClient {
@@ -21,6 +23,7 @@ final class SignalingClient {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     private let webSocket: WebSocketProvider
+    private var shouldReconnect : Bool = true
     weak var delegate: SignalClientDelegate?
     
     init(webSocket: WebSocketProvider) {
@@ -30,6 +33,12 @@ final class SignalingClient {
     func connect() {
         self.webSocket.delegate = self
         self.webSocket.connect()
+    }
+    
+    func close() {
+        self.shouldReconnect = false
+        self.webSocket.close()
+        self.webSocket.delegate = nil
     }
     
     func send(sdp rtcSdp: RTCSessionDescription) {
@@ -58,36 +67,54 @@ final class SignalingClient {
 
 
 extension SignalingClient: WebSocketProviderDelegate {
+    
     func webSocketDidConnect(_ webSocket: WebSocketProvider) {
         self.delegate?.signalClientDidConnect(self)
     }
     
-    func webSocketDidDisconnect(_ webSocket: WebSocketProvider) {
-        self.delegate?.signalClientDidDisconnect(self)
+    func webSocketDidDisconnect(_ webSocket: WebSocketProvider, error: Error?) {
+        self.delegate?.signalClientDidDisconnect(self, error: error)
         
         // try to reconnect every two seconds
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
-            debugPrint("Trying to reconnect to signaling server...")
-            self.webSocket.connect()
+            if self.shouldReconnect {
+                debugPrint("Trying to reconnect to signaling server...")
+                self.webSocket.connect()
+            }
         }
     }
     
-    func webSocket(_ webSocket: WebSocketProvider, didReceiveData data: Data) {
+    func webSocketReceiveError(_ webSocket: WebSocketProvider, error: Error?) {
+        self.delegate?.signalClientDidReceiveError(self, error: error)
+    }
+    
+    // Handle a message sent over websocket
+    func webSocketDidReceiveData(_ webSocket: WebSocketProvider, data: Data) {
+        
+        // Unescape string
+        var dataStr = String(decoding: data, as: UTF8.self)
+        dataStr = dataStr.replacingOccurrences(of: "\\\"", with: "\"")
+        
         let message: Message
         do {
-            message = try self.decoder.decode(Message.self, from: data)
+            message = try self.decoder.decode(Message.self, from: dataStr.data(using: .utf8)!)
         }
         catch {
-            debugPrint("Warning: Could not decode incoming message: \(error)")
+            let dataStr = String(decoding: data, as: UTF8.self)
+            debugPrint("Warning: Could not decode incoming message: \(error) - Message= \(dataStr)")
             return
         }
         
         switch message {
+        case .config(let config):
+            self.delegate?.signalClient(self, didReceiveConfig: config.rtcConfiguration)
         case .candidate(let iceCandidate):
             self.delegate?.signalClient(self, didReceiveCandidate: iceCandidate.rtcIceCandidate)
         case .sdp(let sessionDescription):
             self.delegate?.signalClient(self, didReceiveRemoteSdp: sessionDescription.rtcSessionDescription)
+        case .playerCount(let playerCount):
+            print("Got player count=\(playerCount)")
         }
-
     }
+    
 }

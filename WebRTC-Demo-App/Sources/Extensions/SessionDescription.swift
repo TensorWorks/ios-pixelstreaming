@@ -28,6 +28,11 @@ struct SessionDescription: Codable {
     let sdp: String
     let type: SdpType
     
+    init(from sdpType: SdpType, and sdp: String) {
+        self.sdp = sdp
+        self.type = sdpType
+    }
+    
     init(from rtcSessionDescription: RTCSessionDescription) {
         self.sdp = rtcSessionDescription.sdp
         

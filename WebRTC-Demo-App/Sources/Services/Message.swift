@@ -11,6 +11,8 @@ import Foundation
 enum Message {
     case sdp(SessionDescription)
     case candidate(IceCandidate)
+    case config(PeerConnectionConfig)
+    case playerCount(Int)
 }
 
 extension Message: Codable {
@@ -18,10 +20,16 @@ extension Message: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let type = try container.decode(String.self, forKey: .type)
         switch type {
-        case String(describing: SessionDescription.self):
-            self = .sdp(try container.decode(SessionDescription.self, forKey: .payload))
-        case String(describing: IceCandidate.self):
-            self = .candidate(try container.decode(IceCandidate.self, forKey: .payload))
+        case "config":
+            self = .config(try container.decode(PeerConnectionConfig.self, forKey: .peerConnectionOptions))
+        case "offer":
+            let sdpStr = try container.decode(String.self, forKey: .sdp)
+            let sdpType = try container.decode(SdpType.self, forKey: .type)
+            self = .sdp(SessionDescription(from: sdpType, and: sdpStr))
+        case "iceCandidate":
+            self = .candidate(try container.decode(IceCandidate.self, forKey: .candidate))
+        case "playerCount":
+            self = .playerCount(try container.decode(Int.self, forKey: .count))
         default:
             throw DecodeError.unknownType
         }
@@ -30,12 +38,18 @@ extension Message: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
-        case .sdp(let sessionDescription):
-            try container.encode(sessionDescription, forKey: .payload)
-            try container.encode(String(describing: SessionDescription.self), forKey: .type)
-        case .candidate(let iceCandidate):
-            try container.encode(iceCandidate, forKey: .payload)
-            try container.encode(String(describing: IceCandidate.self), forKey: .type)
+        case .config(let config):
+            try container.encode("config", forKey: .type)
+            try container.encode(config, forKey: .peerConnectionOptions)
+        case .sdp(let answerSdp):
+            try container.encode("answer", forKey: .type)
+            try container.encode(answerSdp.sdp, forKey: .sdp)
+        case .candidate(let candidate):
+            try container.encode("iceCandidate", forKey: .type)
+            try container.encode(candidate, forKey: .candidate)
+        case .playerCount(let count):
+            try container.encode("playerCount", forKey: .type)
+            try container.encode(count, forKey: .count)
         }
     }
     
@@ -44,6 +58,6 @@ extension Message: Codable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case type, payload
+        case type, sdp, candidate, peerConnectionOptions, count
     }
 }
