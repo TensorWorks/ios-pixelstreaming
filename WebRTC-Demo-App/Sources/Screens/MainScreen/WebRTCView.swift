@@ -10,24 +10,14 @@ import WebRTC
 
 final class WebRTCView: UIView, RTCVideoViewDelegate {
     
-    #if targetEnvironment(simulator) || arch(arm64)
-    let videoView = RTCEAGLVideoView(frame: .zero)
-    #else
-    let videoView = RTCMTLVideoView(frame: .zero)
-    #endif
-
+    let videoView = RTCMTLVideoViewWithTouch(frame: .zero)
     var videoSize = CGSize.zero
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        #if targetEnvironment(simulator) || arch(arm64)
-        self.videoView.contentMode = .scaleAspectFit
-        #else
         self.videoView.videoContentMode = .scaleAspectFit
         self.videoView.isEnabled = true
-        #endif
-        
         self.videoView.isHidden = false
         self.videoView.backgroundColor = UIColor.lightGray
         
@@ -37,12 +27,14 @@ final class WebRTCView: UIView, RTCVideoViewDelegate {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
         videoView.delegate = self
         addSubview(videoView)
     }
 
     func videoView(_ videoView: RTCVideoRenderer, didChangeVideoSize size: CGSize) {
         self.videoSize = size
+        self.videoView.touchDelegate?.onVideoChangedSize(size: size)
         setNeedsLayout()
     }
     
@@ -56,6 +48,10 @@ final class WebRTCView: UIView, RTCVideoViewDelegate {
         if trackState == RTCMediaStreamTrackState.live {
             print("Video track is live | id=\(track.trackId) | kind=\(track.kind)")
         }
+    }
+    
+    func attachTouchDelegate(delegate: TouchDelegate) {
+        self.videoView.touchDelegate = delegate
     }
 
     override func layoutSubviews() {
@@ -73,8 +69,8 @@ final class WebRTCView: UIView, RTCVideoViewDelegate {
         videoView.frame = videoFrame
         videoView.center = CGPoint(x: bounds.midX, y: bounds.midY)
     }
+    
 }
-
 
 extension CGSize {
     func aspectFitScale(in container: CGSize) -> CGFloat {
@@ -92,5 +88,40 @@ extension CGSize {
             return min(container.width / width, container.height / height)
         }
         return 1.0
+    }
+}
+
+class RTCMTLVideoViewWithTouch : RTCMTLVideoView {
+    
+    weak var touchDelegate : TouchDelegate?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.isMultipleTouchEnabled = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        isMultipleTouchEnabled = true
+    }
+    
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.touchDelegate?.touchesBegan(touches)
+    }
+    
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        self.touchDelegate?.touchesMoved(touches)
+    }
+    
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        self.touchDelegate?.touchesEnded(touches)
+    }
+    
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        self.touchDelegate?.touchesCancelled(touches)
     }
 }

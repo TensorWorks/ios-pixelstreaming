@@ -11,17 +11,20 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="WebRTC_Demo" customModuleProvider="target">
             <connections>
-                <outlet property="localCandidatesLabel" destination="8EY-e0-8HZ" id="nZJ-yH-B7n"/>
-                <outlet property="localSdpStatusLabel" destination="yay-HM-9I3" id="YuD-3y-dzO"/>
-                <outlet property="qualityLabel" destination="a5R-dg-bQd" id="TRZ-Tw-Hjb"/>
-                <outlet property="remoteCandidatesLabel" destination="pnF-0b-tqS" id="yaC-Y1-V61"/>
-                <outlet property="remoteSdpStatusLabel" destination="vnU-tf-1SZ" id="Z3X-Z7-wz9"/>
+                <outlet property="connectButton" destination="73B-eg-qG9" id="uJA-45-vVt"/>
+                <outlet property="fullscreenButton" destination="gsd-rA-1TY" id="fsy-c6-VkA"/>
+                <outlet property="localCandidatesText" destination="f7d-GP-pOe" id="12Y-NL-3XW"/>
+                <outlet property="localSDPText" destination="qlz-7Z-2U3" id="c9F-Lc-l8p"/>
+                <outlet property="remoteCandidatesText" destination="fY5-qQ-oOI" id="sTN-pK-1qO"/>
+                <outlet property="remoteSDPText" destination="ZBg-a1-eEf" id="szs-bv-fPC"/>
+                <outlet property="signalingAddressText" destination="nuh-hx-1YW" id="aNn-yW-JTr"/>
                 <outlet property="signalingAddressTextField" destination="5ME-Rq-PKN" id="8uU-Hf-cGX"/>
-                <outlet property="signalingStatusLabel" destination="2vW-Ad-Yxa" id="pXQ-P3-1Eq"/>
+                <outlet property="signalingStatusText" destination="tfj-wv-USl" id="nTe-fF-qZF"/>
                 <outlet property="speakerButton" destination="S3A-iF-y59" id="QSV-4p-TtX"/>
+                <outlet property="videoQualityText" destination="ZPQ-Py-FSl" id="Faj-93-bLS"/>
                 <outlet property="view" destination="tgE-oa-dOK" id="Cma-i2-dnj"/>
-                <outlet property="webRTCStatusLabel" destination="xYX-mQ-1tb" id="vDE-Ut-EHN"/>
                 <outlet property="webRTCView" destination="td7-ye-SlH" id="vTw-Lz-Gjl"/>
+                <outlet property="webrtcStatusText" destination="B4A-b9-XWx" id="4OO-GI-hXH"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -29,181 +32,124 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signaling status:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfj-wv-USl">
-                    <rect key="frame" x="20" y="49" width="125.5" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{status}" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vW-Ad-Yxa">
-                    <rect key="frame" x="155.5" y="49" width="59" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local SDP: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qlz-7Z-2U3">
-                    <rect key="frame" x="20" y="89.5" width="87" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local Candidates:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7d-GP-pOe">
-                    <rect key="frame" x="20" y="130" width="136" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{localSdp}" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yay-HM-9I3">
-                    <rect key="frame" x="117" y="89.5" width="78" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{#candidates}" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8EY-e0-8HZ">
-                    <rect key="frame" x="166" y="130" width="107" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remote SDP: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBg-a1-eEf">
-                    <rect key="frame" x="20" y="170.5" width="105" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remote Candidates:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fY5-qQ-oOI">
-                    <rect key="frame" x="20" y="211" width="154" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{remoteSdp}" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnU-tf-1SZ">
-                    <rect key="frame" x="135" y="170.5" width="97" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{#candidates}" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnF-0b-tqS">
-                    <rect key="frame" x="184" y="211" width="107" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3A-iF-y59">
-                    <rect key="frame" x="20" y="1296" width="56" height="30"/>
-                    <state key="normal" title="Speaker"/>
-                    <connections>
-                        <action selector="speakerDidTap:" destination="-1" eventType="touchUpInside" id="sar-D8-lYV"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{WebRTC Status}" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYX-mQ-1tb">
-                    <rect key="frame" x="154.5" y="251.5" width="138" height="21"/>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WebRTC Status:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4A-b9-XWx">
-                    <rect key="frame" x="20" y="251.5" width="124.5" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rst-gF-abW">
-                    <rect key="frame" x="934" y="1296" width="70" height="30"/>
-                    <state key="normal" title="Send data"/>
-                    <connections>
-                        <action selector="sendDataDidTap:" destination="-1" eventType="touchUpInside" id="2hT-yS-Fws"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signaling address:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-hx-1YW">
-                    <rect key="frame" x="20" y="292.5" width="139.5" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ws://10.115.11.217" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ME-Rq-PKN">
-                    <rect key="frame" x="169.5" y="286" width="139" height="34"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73B-eg-qG9">
-                    <rect key="frame" x="318.5" y="287.5" width="79" height="31"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="filled" title="Connect"/>
-                    <connections>
-                        <action selector="connectButtonTapped:" destination="-1" eventType="touchUpInside" id="f1U-Gj-UeC"/>
-                    </connections>
-                </button>
-                <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="td7-ye-SlH" userLabel="RemoteVideo" customClass="WebRTCView" customModule="WebRTC_Demo" customModuleProvider="target" colorLabel="IBBuiltInLabel-Purple">
-                    <rect key="frame" x="20" y="340" width="984" height="898"/>
-                    <color key="backgroundColor" systemColor="tintColor"/>
+                <stackView opaque="NO" contentMode="center" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" distribution="equalCentering" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qRX-Zl-heP">
+                    <rect key="frame" x="10" y="1315" width="1004" height="31"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsd-rA-1TY">
+                            <rect key="frame" x="0.0" y="0.0" width="108.5" height="31"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Toggle Video"/>
+                            <connections>
+                                <action selector="fullscreenTapped" destination="-1" eventType="touchUpInside" id="CBz-Ot-xTm"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3A-iF-y59">
+                            <rect key="frame" x="927" y="0.0" width="77" height="31"/>
+                            <state key="normal" title="Speaker"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Speaker"/>
+                            <connections>
+                                <action selector="speakerDidTap:" destination="-1" eventType="touchUpInside" id="sar-D8-lYV"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+                <view contentMode="scaleAspectFill" verticalHuggingPriority="100" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="100" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="td7-ye-SlH" userLabel="RemoteVideo" customClass="WebRTCView" customModule="WebRTC_Demo" customModuleProvider="target" colorLabel="IBBuiltInLabel-Purple">
+                    <rect key="frame" x="0.0" y="281.5" width="1024" height="1033.5"/>
+                    <color key="backgroundColor" systemColor="systemTealColor"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video quality:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPQ-Py-FSl">
-                    <rect key="frame" x="827.5" y="49" width="104" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{quality}" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a5R-dg-bQd">
-                    <rect key="frame" x="941.5" y="49" width="62.5" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="x8p-tz-88l">
+                    <rect key="frame" x="10" y="34" width="1014" height="203.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Signaling status: None" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfj-wv-USl">
+                            <rect key="frame" x="0.0" y="0.0" width="170.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WebRTC Status: None" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4A-b9-XWx">
+                            <rect key="frame" x="0.0" y="30.5" width="169.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local SDP: None" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qlz-7Z-2U3">
+                            <rect key="frame" x="0.0" y="61" width="127" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local Candidates: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7d-GP-pOe">
+                            <rect key="frame" x="0.0" y="91.5" width="150.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remote SDP: None" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBg-a1-eEf">
+                            <rect key="frame" x="0.0" y="122" width="145.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remote Candidates: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fY5-qQ-oOI">
+                            <rect key="frame" x="0.0" y="152.5" width="168.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video quality: N/A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPQ-Py-FSl">
+                            <rect key="frame" x="0.0" y="183" width="135.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleAspectFit" verticalHuggingPriority="100" verticalCompressionResistancePriority="100" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="R9P-4v-S7F">
+                    <rect key="frame" x="10" y="247.5" width="1004" height="34"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signaling address:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-hx-1YW">
+                            <rect key="frame" x="0.0" y="0.0" width="139.5" height="34"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ws://10.115.11.165" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ME-Rq-PKN">
+                            <rect key="frame" x="149.5" y="0.0" width="765.5" height="34"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <stackView opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tUE-Yw-VjD">
+                            <rect key="frame" x="925" y="0.0" width="79" height="34"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73B-eg-qG9">
+                                    <rect key="frame" x="0.0" y="1.5" width="79" height="31"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="filled" title="Connect"/>
+                                    <connections>
+                                        <action selector="connectButtonTapped:" destination="-1" eventType="touchUpInside" id="f1U-Gj-UeC"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="ltd-4m-UTj"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="S3A-iF-y59" firstAttribute="baseline" secondItem="Rst-gF-abW" secondAttribute="baseline" id="0q2-q0-IvK"/>
-                <constraint firstItem="nuh-hx-1YW" firstAttribute="leading" secondItem="B4A-b9-XWx" secondAttribute="leading" id="2Pl-Qp-F5G"/>
-                <constraint firstItem="xYX-mQ-1tb" firstAttribute="top" secondItem="pnF-0b-tqS" secondAttribute="bottom" constant="20" id="6rH-Q8-8b5"/>
-                <constraint firstItem="yay-HM-9I3" firstAttribute="top" secondItem="2vW-Ad-Yxa" secondAttribute="bottom" constant="20" id="9mq-bY-AZS"/>
-                <constraint firstItem="8EY-e0-8HZ" firstAttribute="leading" secondItem="f7d-GP-pOe" secondAttribute="trailing" constant="10" id="AvV-SQ-ULG"/>
-                <constraint firstItem="S3A-iF-y59" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="20" id="E4z-Ji-PMw"/>
-                <constraint firstItem="ZBg-a1-eEf" firstAttribute="firstBaseline" secondItem="vnU-tf-1SZ" secondAttribute="firstBaseline" id="FN8-TK-20B"/>
-                <constraint firstItem="ltd-4m-UTj" firstAttribute="bottom" secondItem="S3A-iF-y59" secondAttribute="bottom" constant="20" id="HDg-Nr-r50"/>
-                <constraint firstItem="B4A-b9-XWx" firstAttribute="firstBaseline" secondItem="xYX-mQ-1tb" secondAttribute="firstBaseline" id="Kfy-sN-O5k"/>
-                <constraint firstItem="td7-ye-SlH" firstAttribute="top" secondItem="5ME-Rq-PKN" secondAttribute="bottom" constant="20" id="LWC-nC-r8B"/>
-                <constraint firstItem="2vW-Ad-Yxa" firstAttribute="leading" secondItem="tfj-wv-USl" secondAttribute="trailing" constant="10" id="M3e-r2-L7L"/>
-                <constraint firstItem="ZPQ-Py-FSl" firstAttribute="centerY" secondItem="2vW-Ad-Yxa" secondAttribute="centerY" id="MOl-Il-fyv"/>
-                <constraint firstItem="pnF-0b-tqS" firstAttribute="leading" secondItem="fY5-qQ-oOI" secondAttribute="trailing" constant="10" id="O71-Kd-30b"/>
-                <constraint firstItem="ZBg-a1-eEf" firstAttribute="top" secondItem="f7d-GP-pOe" secondAttribute="bottom" constant="20" id="OTc-Hb-Rmm"/>
-                <constraint firstItem="a5R-dg-bQd" firstAttribute="leading" secondItem="ZPQ-Py-FSl" secondAttribute="trailing" constant="10" id="QUD-iu-YTt"/>
-                <constraint firstItem="8EY-e0-8HZ" firstAttribute="top" secondItem="yay-HM-9I3" secondAttribute="bottom" constant="20" id="Qgs-ZH-dzq"/>
-                <constraint firstItem="td7-ye-SlH" firstAttribute="leading" secondItem="tgE-oa-dOK" secondAttribute="leading" constant="20" id="STE-sh-tRB"/>
-                <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="a5R-dg-bQd" secondAttribute="trailing" constant="20" id="Tgc-4b-8go"/>
-                <constraint firstItem="qlz-7Z-2U3" firstAttribute="baseline" secondItem="yay-HM-9I3" secondAttribute="baseline" id="Tn5-kx-br0"/>
-                <constraint firstItem="B4A-b9-XWx" firstAttribute="leading" secondItem="fY5-qQ-oOI" secondAttribute="leading" id="Tu3-fG-OPl"/>
-                <constraint firstItem="vnU-tf-1SZ" firstAttribute="top" secondItem="8EY-e0-8HZ" secondAttribute="bottom" constant="20" id="UTx-3x-Sh8"/>
-                <constraint firstItem="f7d-GP-pOe" firstAttribute="top" secondItem="qlz-7Z-2U3" secondAttribute="bottom" constant="20" id="UlN-rU-5nr"/>
-                <constraint firstItem="f7d-GP-pOe" firstAttribute="leading" secondItem="qlz-7Z-2U3" secondAttribute="leading" id="Wrf-Lu-G0g"/>
-                <constraint firstItem="tfj-wv-USl" firstAttribute="top" secondItem="ltd-4m-UTj" secondAttribute="top" constant="25" id="Xa6-6D-3iO"/>
-                <constraint firstItem="73B-eg-qG9" firstAttribute="centerY" secondItem="5ME-Rq-PKN" secondAttribute="centerY" id="YZv-ni-dev"/>
-                <constraint firstItem="qlz-7Z-2U3" firstAttribute="leading" secondItem="tfj-wv-USl" secondAttribute="leading" id="a6d-tP-L1v"/>
-                <constraint firstItem="nuh-hx-1YW" firstAttribute="top" secondItem="B4A-b9-XWx" secondAttribute="bottom" constant="20.5" id="bc9-iy-r0d"/>
-                <constraint firstItem="2vW-Ad-Yxa" firstAttribute="top" secondItem="ltd-4m-UTj" secondAttribute="top" constant="25" id="biA-b8-ZYZ"/>
-                <constraint firstItem="ZBg-a1-eEf" firstAttribute="leading" secondItem="f7d-GP-pOe" secondAttribute="leading" id="emL-vj-hPu"/>
-                <constraint firstItem="fY5-qQ-oOI" firstAttribute="firstBaseline" secondItem="pnF-0b-tqS" secondAttribute="firstBaseline" id="gRx-Qj-pKI"/>
-                <constraint firstItem="qlz-7Z-2U3" firstAttribute="top" secondItem="tfj-wv-USl" secondAttribute="bottom" constant="20" id="gjU-g0-546"/>
-                <constraint firstItem="fY5-qQ-oOI" firstAttribute="leading" secondItem="ZBg-a1-eEf" secondAttribute="leading" id="hYf-nV-fAc"/>
-                <constraint firstItem="nuh-hx-1YW" firstAttribute="top" secondItem="xYX-mQ-1tb" secondAttribute="bottom" constant="20" id="iLC-sD-WyI"/>
-                <constraint firstItem="yay-HM-9I3" firstAttribute="leading" secondItem="qlz-7Z-2U3" secondAttribute="trailing" constant="10" id="iNH-EY-wz6"/>
-                <constraint firstItem="pnF-0b-tqS" firstAttribute="top" secondItem="vnU-tf-1SZ" secondAttribute="bottom" constant="20" id="iuz-dq-iZl"/>
-                <constraint firstItem="vnU-tf-1SZ" firstAttribute="leading" secondItem="ZBg-a1-eEf" secondAttribute="trailing" constant="10" id="jlV-7a-auZ"/>
-                <constraint firstItem="a5R-dg-bQd" firstAttribute="centerY" secondItem="ZPQ-Py-FSl" secondAttribute="centerY" id="lJj-tY-8Ro"/>
-                <constraint firstItem="B4A-b9-XWx" firstAttribute="top" secondItem="fY5-qQ-oOI" secondAttribute="bottom" constant="20" id="lpj-l7-Zby"/>
-                <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="Rst-gF-abW" secondAttribute="trailing" constant="20" id="lyM-Qo-KvP"/>
-                <constraint firstItem="S3A-iF-y59" firstAttribute="top" secondItem="td7-ye-SlH" secondAttribute="bottom" constant="58" id="mG7-07-rtM"/>
-                <constraint firstItem="fY5-qQ-oOI" firstAttribute="top" secondItem="ZBg-a1-eEf" secondAttribute="bottom" constant="20" id="nLO-k6-7hN"/>
-                <constraint firstItem="xYX-mQ-1tb" firstAttribute="leading" secondItem="B4A-b9-XWx" secondAttribute="trailing" constant="10" id="nu7-No-AfE"/>
-                <constraint firstItem="5ME-Rq-PKN" firstAttribute="centerY" secondItem="nuh-hx-1YW" secondAttribute="centerY" id="pLZ-Tx-MQJ"/>
-                <constraint firstAttribute="trailing" secondItem="td7-ye-SlH" secondAttribute="trailing" constant="20" id="qLh-uF-w35"/>
-                <constraint firstItem="73B-eg-qG9" firstAttribute="leading" secondItem="5ME-Rq-PKN" secondAttribute="trailing" constant="10" id="rDh-VO-Yf3"/>
-                <constraint firstItem="tfj-wv-USl" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="20" id="rr5-4Y-sG9"/>
-                <constraint firstItem="vnU-tf-1SZ" firstAttribute="leading" secondItem="ZBg-a1-eEf" secondAttribute="trailing" constant="10" id="vkh-sC-JIU"/>
-                <constraint firstItem="5ME-Rq-PKN" firstAttribute="leading" secondItem="nuh-hx-1YW" secondAttribute="trailing" constant="10" id="wKk-Ql-sBX"/>
-                <constraint firstItem="2vW-Ad-Yxa" firstAttribute="baseline" secondItem="tfj-wv-USl" secondAttribute="baseline" id="x4i-ev-dzL"/>
-                <constraint firstItem="f7d-GP-pOe" firstAttribute="firstBaseline" secondItem="8EY-e0-8HZ" secondAttribute="firstBaseline" id="xW8-M1-gVf"/>
+                <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="td7-ye-SlH" secondAttribute="trailing" id="0gG-8c-Qgb"/>
+                <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="qRX-Zl-heP" secondAttribute="trailing" constant="10" id="8Bv-l3-4SD"/>
+                <constraint firstItem="R9P-4v-S7F" firstAttribute="top" secondItem="x8p-tz-88l" secondAttribute="bottom" constant="10" id="B27-n2-zxv"/>
+                <constraint firstItem="x8p-tz-88l" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="10" id="Dmg-9t-uxA"/>
+                <constraint firstItem="ltd-4m-UTj" firstAttribute="trailing" secondItem="R9P-4v-S7F" secondAttribute="trailing" constant="10" id="EDk-5m-GRs"/>
+                <constraint firstItem="qRX-Zl-heP" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="10" id="SB4-Df-NDV"/>
+                <constraint firstItem="td7-ye-SlH" firstAttribute="top" secondItem="R9P-4v-S7F" secondAttribute="bottom" id="T06-QT-LD0"/>
+                <constraint firstItem="R9P-4v-S7F" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" constant="10" id="Y1F-7S-EWL"/>
+                <constraint firstItem="td7-ye-SlH" firstAttribute="leading" secondItem="ltd-4m-UTj" secondAttribute="leading" id="Ztq-if-rSt"/>
+                <constraint firstItem="x8p-tz-88l" firstAttribute="trailing" secondItem="ltd-4m-UTj" secondAttribute="trailing" id="giL-VE-FSk"/>
+                <constraint firstItem="qRX-Zl-heP" firstAttribute="top" secondItem="td7-ye-SlH" secondAttribute="bottom" id="jBf-Dz-m3u"/>
+                <constraint firstItem="ltd-4m-UTj" firstAttribute="bottom" secondItem="qRX-Zl-heP" secondAttribute="bottom" id="oZc-M8-z5n"/>
+                <constraint firstItem="x8p-tz-88l" firstAttribute="top" secondItem="ltd-4m-UTj" secondAttribute="top" constant="10" id="wGA-Zf-07F"/>
             </constraints>
             <point key="canvasLocation" x="135.9375" y="152.8550512445095"/>
         </view>
@@ -212,8 +158,8 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

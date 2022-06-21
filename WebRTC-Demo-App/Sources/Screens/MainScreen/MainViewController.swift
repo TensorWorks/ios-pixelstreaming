@@ -14,32 +14,43 @@ class MainViewController: UIViewController {
 
     private var signalClient: SignalingClient?
     private let webRTCClient: WebRTCClient
+    private var touchControls: TouchControls?
+    private var enlargedVideo : Bool
 
     // A timer used for mocking sending high frequency of data channel messages
     private var mockTimer : Timer? = nil
     
-    @IBOutlet private weak var speakerButton: UIButton?
-    @IBOutlet private weak var signalingStatusLabel: UILabel?
-    @IBOutlet private weak var localSdpStatusLabel: UILabel?
-    @IBOutlet private weak var localCandidatesLabel: UILabel?
-    @IBOutlet private weak var remoteSdpStatusLabel: UILabel?
-    @IBOutlet private weak var remoteCandidatesLabel: UILabel?
-    @IBOutlet private weak var webRTCStatusLabel: UILabel?
-    @IBOutlet private weak var signalingAddressTextField: UITextField?
-    @IBOutlet private weak var webRTCView: WebRTCView?
-    @IBOutlet private weak var qualityLabel: UILabel?
+    // static labels
+    @IBOutlet private weak var signalingStatusText: UILabel?
+    @IBOutlet private weak var localSDPText: UILabel?
+    @IBOutlet private weak var localCandidatesText: UILabel?
+    @IBOutlet private weak var remoteSDPText: UILabel?
+    @IBOutlet private weak var remoteCandidatesText: UILabel?
+    @IBOutlet private weak var webrtcStatusText: UILabel?
+    @IBOutlet private weak var signalingAddressText: UILabel?
+    @IBOutlet private weak var videoQualityText: UILabel?
     
+    // text fields
+    @IBOutlet private weak var signalingAddressTextField: UITextField?
+    
+    // buttons
+    @IBOutlet private weak var connectButton: UIButton?
+    @IBOutlet private weak var speakerButton: UIButton?
+    @IBOutlet private weak var fullscreenButton: UIButton?
+    
+    // rtc video
+    @IBOutlet private weak var webRTCView: WebRTCView?
     
     private var signalingConnected: Bool = false {
         didSet {
             DispatchQueue.main.async {
                 if self.signalingConnected {
-                    self.signalingStatusLabel?.text = "Connected"
-                    self.signalingStatusLabel?.textColor = UIColor.green
+                    self.signalingStatusText?.text = "Signaling status: Connected"
+                    self.signalingStatusText?.textColor = UIColor.green
                 }
                 else {
-                    self.signalingStatusLabel?.text = "Not connected"
-                    self.signalingStatusLabel?.textColor = UIColor.red
+                    self.signalingStatusText?.text = "Signaling status: Not connected"
+                    self.signalingStatusText?.textColor = UIColor.red
                 }
             }
         }
@@ -48,7 +59,7 @@ class MainViewController: UIViewController {
     private var quality: String = "N/A" {
         didSet {
             DispatchQueue.main.async {
-                self.qualityLabel?.text = self.quality
+                self.videoQualityText?.text = "Video quality: \(self.quality)"
             }
         }
     }
@@ -56,7 +67,7 @@ class MainViewController: UIViewController {
     private var hasLocalSdp: Bool = false {
         didSet {
             DispatchQueue.main.async {
-                self.localSdpStatusLabel?.text = self.hasLocalSdp ? "✅" : "❌"
+                self.localSDPText?.text = self.hasLocalSdp ? "Local SDP: ✅" : "Local SDP: ❌"
             }
         }
     }
@@ -64,7 +75,7 @@ class MainViewController: UIViewController {
     private var localCandidateCount: Int = 0 {
         didSet {
             DispatchQueue.main.async {
-                self.localCandidatesLabel?.text = "\(self.localCandidateCount)"
+                self.localCandidatesText?.text = "Local candidates: \(self.localCandidateCount)"
             }
         }
     }
@@ -72,7 +83,7 @@ class MainViewController: UIViewController {
     private var hasRemoteSdp: Bool = false {
         didSet {
             DispatchQueue.main.async {
-                self.remoteSdpStatusLabel?.text = self.hasRemoteSdp ? "✅" : "❌"
+                self.remoteSDPText?.text = self.hasRemoteSdp ? "Remote SDP: ✅" : "Remote SDP: ❌"
             }
         }
     }
@@ -80,7 +91,7 @@ class MainViewController: UIViewController {
     private var remoteCandidateCount: Int = 0 {
         didSet {
             DispatchQueue.main.async {
-                self.remoteCandidatesLabel?.text = "\(self.remoteCandidateCount)"
+                self.remoteCandidatesText?.text = "Remote Candidates: \(self.remoteCandidateCount)"
             }
         }
     }
@@ -94,6 +105,7 @@ class MainViewController: UIViewController {
     
     init(webRTCClient: WebRTCClient) {
         self.webRTCClient = webRTCClient
+        self.enlargedVideo = false
         super.init(nibName: String(describing: MainViewController.self), bundle: Bundle.main)
     }
     
@@ -104,7 +116,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "WebRTC Demo"
         resetUI()
         self.webRTCClient.delegate = self
     }
@@ -126,6 +137,21 @@ class MainViewController: UIViewController {
         }
     }
     
+    @IBAction func fullscreenTapped() {
+        self.enlargedVideo = !self.enlargedVideo
+        self.signalingStatusText?.isHidden = self.enlargedVideo
+        self.localSDPText?.isHidden = self.enlargedVideo
+        self.localCandidatesText?.isHidden = self.enlargedVideo
+        self.remoteSDPText?.isHidden = self.enlargedVideo
+        self.remoteCandidatesText?.isHidden = self.enlargedVideo
+        self.webrtcStatusText?.isHidden = self.enlargedVideo
+        self.signalingAddressText?.isHidden = self.enlargedVideo
+        self.videoQualityText?.isHidden = self.enlargedVideo
+        self.signalingAddressTextField?.isHidden = self.enlargedVideo
+        self.connectButton?.isHidden = self.enlargedVideo
+        self.speakerButton?.isHidden = self.enlargedVideo
+    }
+    
     func resetUI() {
         self.signalingConnected = false
         self.hasLocalSdp = false
@@ -133,7 +159,7 @@ class MainViewController: UIViewController {
         self.localCandidateCount = 0
         self.remoteCandidateCount = 0
         self.speakerOn = true
-        self.webRTCStatusLabel?.text = "New"
+        self.webrtcStatusText?.text = "WebRTC status: New"
         self.quality = "N/A"
     }
     
@@ -172,22 +198,6 @@ class MainViewController: UIViewController {
         self.speakerOn = !self.speakerOn
     }
     
-    @IBAction func sendDataDidTap(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Send a message to the other peer",
-                                      message: "This will be transferred over WebRTC data channel",
-                                      preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Message to send"
-        }
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Send", style: .default, handler: { [weak self, unowned alert] _ in
-            guard let dataToSend = alert.textFields?.first?.text?.data(using: .utf8) else {
-                return
-            }
-            self?.webRTCClient.sendData(dataToSend)
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
 }
 
 extension MainViewController: SignalClientDelegate {
@@ -279,7 +289,9 @@ extension MainViewController: SignalClientDelegate {
 extension MainViewController: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, onStartReceiveVideo video: RTCVideoTrack) {
+        self.touchControls = TouchControls(self.webRTCClient, touchView: self.webRTCView!.videoView)
         webRTCView!.attachVideoTrack(track: video)
+        webRTCView!.attachTouchDelegate(delegate: self.touchControls!)
     }
     
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
@@ -332,8 +344,8 @@ extension MainViewController: WebRTCClientDelegate {
             textColor = .black
         }
         DispatchQueue.main.async {
-            self.webRTCStatusLabel?.text = state.description.capitalized
-            self.webRTCStatusLabel?.textColor = textColor
+            self.webrtcStatusText?.text = "WebRTC status: \(state.description.capitalized)"
+            self.webrtcStatusText?.textColor = textColor
         }
     }
     
@@ -342,14 +354,14 @@ extension MainViewController: WebRTCClientDelegate {
         let bytes: [UInt8] = [50] // 50 is a special message type for json data, we'll use this as an example of sending data back
         let data = Data(bytes)
         self.webRTCClient.sendData(data)
-        debugPrint("Sending mock data to UE")
+        //debugPrint("Sending mock data to UE")
     }
     
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
         
         if(data.count > 0) {
             let payloadTypeInt : UInt8 = data[0]
-            if let payloadType = PixelStreamingToClientMessage(rawValue: Int(payloadTypeInt)) {
+            if let payloadType = PixelStreamingToClientMessage(rawValue: payloadTypeInt) {
                 switch payloadType {
                 case .VideoEncoderAvgQP:
                     let qp : String? = String(data: data.dropFirst(), encoding: .utf16LittleEndian)

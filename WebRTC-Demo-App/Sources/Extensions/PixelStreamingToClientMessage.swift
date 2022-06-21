@@ -9,7 +9,7 @@
 import Foundation
 
 // Must stay synced with Pixel Streaming plugin until a better solution is devised.
-enum PixelStreamingToClientMessage: Int, Codable {
+enum PixelStreamingToClientMessage: UInt8, Codable {
     case QualityControlOwnership = 0
     case Response = 1
     case Command = 2

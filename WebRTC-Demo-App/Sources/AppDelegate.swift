@@ -26,9 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let webRTCClient = WebRTCClient()
         let mainViewController = MainViewController(webRTCClient: webRTCClient)
-        let navViewController = UINavigationController(rootViewController: mainViewController)
-        navViewController.navigationBar.prefersLargeTitles = true
-        return navViewController
+        return mainViewController
     }
     
 }
