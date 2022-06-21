@@ -11,8 +11,8 @@ A simple native WebRTC demo iOS app using swift that has been modified to work w
 ## Run instructions
 1. Run the signaling server using `node cirrus.js` somewhere on your LAN - take note of its LAN address.
 2. Run a Pixel Streaming UE application and point it at the signalling server with address with `-PixelStreamingURL=ws://{your-signaling-address}:8888`
-3. Run this iOS application in this repo.
-4. In the text field for signalling address put in `ws://{your-signaling-address}` (can drop the port as it is connecting over 80 here)
+3. Build and run the iOS application from this repo (real devices work better than simulator for this).
+4. In the iOS app, in the text field for signaling address put in `ws://{your-signaling-address}` (can drop the port as it is connecting over 80 here)
 5. Click the connect button in the iOS app
 6. Done! You should see streaming.
 
