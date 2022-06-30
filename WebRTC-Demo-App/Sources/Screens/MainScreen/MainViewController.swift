@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
     private var signalClient: SignalingClient?
     private let webRTCClient: WebRTCClient
     private var touchControls: TouchControls?
+    private var arControls: ARControls?
     private var enlargedVideo : Bool
 
     // A timer used for mocking sending high frequency of data channel messages
@@ -37,6 +38,7 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var connectButton: UIButton?
     @IBOutlet private weak var speakerButton: UIButton?
     @IBOutlet private weak var fullscreenButton: UIButton?
+    @IBOutlet private weak var recalibrateButton: UIButton?
     
     // rtc video
     @IBOutlet private weak var webRTCView: WebRTCView?
@@ -119,6 +121,11 @@ class MainViewController: UIViewController {
         resetUI()
         self.webRTCClient.delegate = self
     }
+    
+    @IBAction func recalibrateTapped(_ sender: UIButton) {
+        self.arControls?.restartAR()
+    }
+    
     
     @IBAction func connectButtonTapped(_ sender: UIButton) {
         
@@ -290,6 +297,7 @@ extension MainViewController: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, onStartReceiveVideo video: RTCVideoTrack) {
         self.touchControls = TouchControls(self.webRTCClient, touchView: self.webRTCView!.videoView)
+        self.arControls = ARControls(self.webRTCClient)
         webRTCView!.attachVideoTrack(track: video)
         webRTCView!.attachTouchDelegate(delegate: self.touchControls!)
     }

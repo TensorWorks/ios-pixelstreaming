@@ -25,10 +25,13 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>To use WebRTC on iOS this app needs mic access, even though it doesn't use it.</string>
+	<string>To use WebRTC on iOS this app needs mic access, even though it doesn&apos;t use it.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We use ARKit to send device transforms back to UE where they are used to pilot cameras.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>arm64</string>
+		<string>arkit</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

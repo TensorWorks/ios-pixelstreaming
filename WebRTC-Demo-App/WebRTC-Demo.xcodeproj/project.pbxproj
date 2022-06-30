@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		260DADB52858276300439E02 /* WebRTCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260DADB42858276300439E02 /* WebRTCView.swift */; };
 		262F20DA284D971C00488510 /* SimulatorsList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 262F20D9284D971C00488510 /* SimulatorsList.txt */; };
+		2645640B286D2AFF00BA80FE /* ARControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2645640A286D2AFF00BA80FE /* ARControls.swift */; };
 		264F3E2A285FFF65007D1F78 /* TouchControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264F3E29285FFF65007D1F78 /* TouchControls.swift */; };
 		264F3E2C28602376007D1F78 /* PixelStreamingToStreamerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264F3E2B28602376007D1F78 /* PixelStreamingToStreamerMessage.swift */; };
-		264F3E2E28602BBA007D1F78 /* IntToBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264F3E2D28602BBA007D1F78 /* IntToBytes.swift */; };
+		264F3E2E28602BBA007D1F78 /* ToBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264F3E2D28602BBA007D1F78 /* ToBytes.swift */; };
 		26527AC1284F205E005DD58A /* NativeWebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26527AC0284F205E005DD58A /* NativeWebSocketProvider.swift */; };
 		268B28462852ECF40047CCF5 /* PeerConnectionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268B28452852ECF40047CCF5 /* PeerConnectionConfig.swift */; };
 		26E1827E284DD24300AFEC63 /* file_example_MP4_1920_18MG.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 26E1827D284DD24300AFEC63 /* file_example_MP4_1920_18MG.mp4 */; };
@@ -37,9 +38,10 @@
 		260DADB42858276300439E02 /* WebRTCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCView.swift; sourceTree = "<group>"; };
 		262F20D9284D971C00488510 /* SimulatorsList.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimulatorsList.txt; sourceTree = "<group>"; };
 		262F20DB284D976200488510 /* multipleSimulatorsStartup.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = multipleSimulatorsStartup.sh; sourceTree = "<group>"; };
+		2645640A286D2AFF00BA80FE /* ARControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARControls.swift; sourceTree = "<group>"; };
 		264F3E29285FFF65007D1F78 /* TouchControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchControls.swift; sourceTree = "<group>"; };
 		264F3E2B28602376007D1F78 /* PixelStreamingToStreamerMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelStreamingToStreamerMessage.swift; sourceTree = "<group>"; };
-		264F3E2D28602BBA007D1F78 /* IntToBytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntToBytes.swift; sourceTree = "<group>"; };
+		264F3E2D28602BBA007D1F78 /* ToBytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBytes.swift; sourceTree = "<group>"; };
 		26527AC0284F205E005DD58A /* NativeWebSocketProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWebSocketProvider.swift; sourceTree = "<group>"; };
 		268B28452852ECF40047CCF5 /* PeerConnectionConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerConnectionConfig.swift; sourceTree = "<group>"; };
 		26E1827D284DD24300AFEC63 /* file_example_MP4_1920_18MG.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = file_example_MP4_1920_18MG.mp4; sourceTree = "<group>"; };
@@ -118,7 +120,8 @@
 				26F7949E2859A50500B9A2E3 /* PixelStreamingToClientMessage.swift */,
 				264F3E29285FFF65007D1F78 /* TouchControls.swift */,
 				264F3E2B28602376007D1F78 /* PixelStreamingToStreamerMessage.swift */,
-				264F3E2D28602BBA007D1F78 /* IntToBytes.swift */,
+				264F3E2D28602BBA007D1F78 /* ToBytes.swift */,
+				2645640A286D2AFF00BA80FE /* ARControls.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -289,9 +292,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				79262EE920B0D6F600D576C1 /* MainViewController.swift in Sources */,
-				264F3E2E28602BBA007D1F78 /* IntToBytes.swift in Sources */,
+				264F3E2E28602BBA007D1F78 /* ToBytes.swift in Sources */,
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,
 				264F3E2A285FFF65007D1F78 /* TouchControls.swift in Sources */,
+				2645640B286D2AFF00BA80FE /* ARControls.swift in Sources */,
 				795A4A26221E081A00F8BB03 /* SessionDescription.swift in Sources */,
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,

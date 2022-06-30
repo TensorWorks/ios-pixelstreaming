@@ -15,6 +15,7 @@
                 <outlet property="fullscreenButton" destination="gsd-rA-1TY" id="fsy-c6-VkA"/>
                 <outlet property="localCandidatesText" destination="f7d-GP-pOe" id="12Y-NL-3XW"/>
                 <outlet property="localSDPText" destination="qlz-7Z-2U3" id="c9F-Lc-l8p"/>
+                <outlet property="recalibrateButton" destination="Rws-cV-UDJ" id="t3f-7n-qP4"/>
                 <outlet property="remoteCandidatesText" destination="fY5-qQ-oOI" id="sTN-pK-1qO"/>
                 <outlet property="remoteSDPText" destination="ZBg-a1-eEf" id="szs-bv-fPC"/>
                 <outlet property="signalingAddressText" destination="nuh-hx-1YW" id="aNn-yW-JTr"/>
@@ -41,6 +42,14 @@
                             <buttonConfiguration key="configuration" style="filled" title="Toggle Video"/>
                             <connections>
                                 <action selector="fullscreenTapped" destination="-1" eventType="touchUpInside" id="CBz-Ot-xTm"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rws-cV-UDJ">
+                            <rect key="frame" x="433.5" y="0.0" width="153" height="31"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Recalibrate tracking"/>
+                            <connections>
+                                <action selector="recalibrateTapped:" destination="-1" eventType="touchUpInside" id="DjL-co-BMm"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3A-iF-y59">
@@ -113,7 +122,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ws://10.115.11.165" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ME-Rq-PKN">
+                        <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ws://10.115.11.214" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ME-Rq-PKN">
                             <rect key="frame" x="149.5" y="0.0" width="765.5" height="34"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>

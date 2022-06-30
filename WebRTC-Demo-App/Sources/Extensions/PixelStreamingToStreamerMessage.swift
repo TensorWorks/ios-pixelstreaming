@@ -39,4 +39,6 @@ enum PixelStreamingToStreamerMessage : UInt8, Codable {
     case GamepadButtonPressed = 90
     case GamepadButtonReleased = 91
     case GamepadAnalog = 92
+    
+    case Transform = 100
 }

@@ -42,3 +42,15 @@ extension UInt64: UIntToBytesConvertable {
         return toByteArr(endian: self.littleEndian, count: MemoryLayout<UInt64>.size)
     }
 }
+
+extension Float {
+    func toBytes() -> [UInt8] {
+        withUnsafeBytes(of: self, Array.init)
+    }
+}
+
+extension Double {
+    func toBytes() -> [UInt8] {
+        withUnsafeBytes(of: self, Array.init)
+    }
+}
