@@ -4,6 +4,7 @@
 //
 //  Created by stasel on 15/07/2019.
 //  Copyright © 2019 stasel. All rights reserved.
+//  Modified by Luke Bermingham 01 - Aug - 2022
 //
 
 import Foundation
@@ -24,7 +25,19 @@ class StarscreamWebSocket: WebSocketProvider {
     }
     
     func send(data: Data) {
-        self.socket.write(data: data)
+        let stringifiedMsg = String(data: data, encoding: .utf8)
+        if let msg = stringifiedMsg
+        {
+            send(msg: msg)
+        }
+        else
+        {
+            print("Could not convert data message to UTF8 string.")
+        }
+    }
+    
+    func send(msg: String) {
+        self.socket.write(string: msg)
     }
     
     func close() {

@@ -28,6 +28,7 @@ final class ARControls: NSObject, ARSessionDelegate {
         
         self.arSession.delegate = self
         self.restartAR()
+        
     }
     
     func restartAR() {

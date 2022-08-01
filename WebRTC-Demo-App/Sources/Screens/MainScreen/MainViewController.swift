@@ -18,9 +18,6 @@ class MainViewController: UIViewController {
     private var arControls: ARControls?
     private var enlargedVideo : Bool
 
-    // A timer used for mocking sending high frequency of data channel messages
-    private var mockTimer : Timer? = nil
-    
     // static labels
     @IBOutlet private weak var signalingStatusText: UILabel?
     @IBOutlet private weak var localSDPText: UILabel?
@@ -323,26 +320,11 @@ extension MainViewController: WebRTCClientDelegate {
                 debugPrint("Could not attach video track - there was no valid remoteVideoTrack yet.")
             }
             
-            DispatchQueue.main.async {
-                // Start sending mock data down the data channel at roughly 60fps
-                self.mockTimer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { timer in
-                    self.sendMockData()
-                }
-            }
-            
             textColor = .green
             
         case .completed:
             textColor = .green
         case .disconnected:
-            
-            DispatchQueue.main.async {
-                // end the mock timer if we disconnected
-                if let mockTimer = self.mockTimer {
-                    mockTimer.invalidate()
-                }
-            }
-            
             textColor = .orange
         case .failed, .closed:
             textColor = .red
@@ -355,14 +337,6 @@ extension MainViewController: WebRTCClientDelegate {
             self.webrtcStatusText?.text = "WebRTC status: \(state.description.capitalized)"
             self.webrtcStatusText?.textColor = textColor
         }
-    }
-    
-    func sendMockData() {
-        // ToDo: Replace this with sending back meaningful data
-        let bytes: [UInt8] = [50] // 50 is a special message type for json data, we'll use this as an example of sending data back
-        let data = Data(bytes)
-        self.webRTCClient.sendData(data)
-        //debugPrint("Sending mock data to UE")
     }
     
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {

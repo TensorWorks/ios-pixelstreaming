@@ -3,7 +3,6 @@
 //  WebRTC-Demo
 //
 //  Created by Luke Bermingham on 7/6/2022.
-//  Copyright © 2022 Stas Seldin. All rights reserved.
 //
 
 import Foundation
@@ -39,15 +38,19 @@ class NativeWebSocketProvider : NSObject, WebSocketProvider, URLSessionWebSocket
     }
     
     func send(data: Data) {
-        socket.send(.data(data)) { error in
-            self.handleError(error)
+        let stringifiedMsg = String(data: data, encoding: .utf8)
+        if let msg = stringifiedMsg
+        {
+            send(msg: msg)
+        }
+        else
+        {
+            print("Could not convert data message to UTF8 string.")
         }
     }
     
-    func send(text: String) {
-        socket.send(.string(text)) { error in
-            self.handleError(error)
-        }
+    func send(msg: String) {
+        socket.send(.string(msg), completionHandler: { error in self.handleError(error) })
     }
     
     private func readMessage() {
