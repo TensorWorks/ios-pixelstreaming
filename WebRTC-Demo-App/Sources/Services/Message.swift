@@ -8,11 +8,25 @@
 
 import Foundation
 
+struct ListStreamersMessage: Codable {
+    var type: String = "listStreamers"
+}
+
+struct SubscribeStreamerMessage: Codable {
+    var type: String = "subscribe"
+    var streamerId: String
+    
+    init(inStreamerId: String) {
+        self.streamerId = inStreamerId
+    }
+}
+
 enum Message {
     case sdp(SessionDescription)
     case candidate(IceCandidate)
     case config(PeerConnectionConfig)
     case playerCount(Int)
+    case streamerList([String])
 }
 
 extension Message: Codable {
@@ -30,6 +44,8 @@ extension Message: Codable {
             self = .candidate(try container.decode(IceCandidate.self, forKey: .candidate))
         case "playerCount":
             self = .playerCount(try container.decode(Int.self, forKey: .count))
+        case "streamerList":
+            self = .streamerList(try container.decode([String].self, forKey: .ids))
         default:
             throw DecodeError.unknownType
         }
@@ -50,6 +66,9 @@ extension Message: Codable {
         case .playerCount(let count):
             try container.encode("playerCount", forKey: .type)
             try container.encode(count, forKey: .count)
+        case .streamerList(let ids):
+            try container.encode("streamerList", forKey: .type)
+            try container.encode(ids, forKey: .ids)
         }
     }
     
@@ -58,6 +77,6 @@ extension Message: Codable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case type, sdp, candidate, peerConnectionOptions, count
+        case type, sdp, candidate, peerConnectionOptions, count, ids
     }
 }

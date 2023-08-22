@@ -16,6 +16,7 @@ protocol SignalClientDelegate: AnyObject {
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription)
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate)
     func signalClient(_ signalClient: SignalingClient, didReceiveConfig config: RTCConfiguration)
+    func signalClient(_ signalClient: SignalingClient, didReceieveStreamerIds streamerIds: [String])
 }
 
 final class SignalingClient {
@@ -63,6 +64,26 @@ final class SignalingClient {
             debugPrint("Warning: Could not encode candidate: \(error)")
         }
     }
+    
+    func sendListStreamers() {
+        do {
+            let dataMessage = try self.encoder.encode(ListStreamersMessage())
+            self.webSocket.send(data: dataMessage)
+        } catch {
+            debugPrint("Warning: Could not encode `listStreamers`: \(error)")
+        }
+    }
+    
+    func sendSubscribeToStreamer(streamerId: String) {
+        let subscribeMsg = SubscribeStreamerMessage(inStreamerId: streamerId)
+        
+        do {
+            let dataMessage = try self.encoder.encode(subscribeMsg)
+            self.webSocket.send(data: dataMessage)
+        } catch {
+            debugPrint("Warning: Could not encode `listStreamers`: \(error)")
+        }
+    }
 }
 
 
@@ -91,6 +112,8 @@ extension SignalingClient: WebSocketProviderDelegate {
     // Handle a message sent over websocket
     func webSocketDidReceiveData(_ webSocket: WebSocketProvider, data: Data) {
         
+        
+        
         // Unescape string
         var dataStr = String(decoding: data, as: UTF8.self)
         dataStr = dataStr.replacingOccurrences(of: "\\\"", with: "\"")
@@ -108,12 +131,15 @@ extension SignalingClient: WebSocketProviderDelegate {
         switch message {
         case .config(let config):
             self.delegate?.signalClient(self, didReceiveConfig: config.rtcConfiguration)
+            self.sendListStreamers()
         case .candidate(let iceCandidate):
             self.delegate?.signalClient(self, didReceiveCandidate: iceCandidate.rtcIceCandidate)
         case .sdp(let sessionDescription):
             self.delegate?.signalClient(self, didReceiveRemoteSdp: sessionDescription.rtcSessionDescription)
         case .playerCount(let playerCount):
             print("Got player count=\(playerCount)")
+        case .streamerList(let ids):
+            self.delegate?.signalClient(self, didReceieveStreamerIds: ids)
         }
     }
     

@@ -227,6 +227,19 @@ extension MainViewController: SignalClientDelegate {
         self.webRTCClient.setupPeerConnection(rtcConfiguration: config)
     }
     
+    func signalClient(_ signalClient: SignalingClient, didReceieveStreamerIds streamerIds: [String]) {
+        if streamerIds.count == 0 {
+            debugPrint("Warning: Cannot subscribe to any streamers because the list of streamer ids was empty.")
+            return
+        }
+        // For now always subscribe to the first streamer id
+        let streamerId = streamerIds[0]
+        print("Received list of streamers: \(streamerIds)")
+
+        // Send subscribe message
+        self.signalClient?.sendSubscribeToStreamer(streamerId: streamerId)
+    }
+    
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
         
         var sdpTypeStr : String = ""

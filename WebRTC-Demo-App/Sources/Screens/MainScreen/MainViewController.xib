@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -34,10 +34,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="center" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" distribution="equalCentering" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qRX-Zl-heP">
-                    <rect key="frame" x="10" y="1315" width="1004" height="31"/>
+                    <rect key="frame" x="10" y="1311.5" width="1004" height="34.5"/>
                     <subviews>
                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsd-rA-1TY">
-                            <rect key="frame" x="0.0" y="0.0" width="108.5" height="31"/>
+                            <rect key="frame" x="0.0" y="0.0" width="123.5" height="34.5"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="filled" title="Toggle Video"/>
                             <connections>
@@ -45,7 +45,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rws-cV-UDJ">
-                            <rect key="frame" x="433.5" y="0.0" width="153" height="31"/>
+                            <rect key="frame" x="423.5" y="0.0" width="175.5" height="34.5"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="filled" title="Recalibrate tracking"/>
                             <connections>
@@ -53,7 +53,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3A-iF-y59">
-                            <rect key="frame" x="927" y="0.0" width="77" height="31"/>
+                            <rect key="frame" x="917.5" y="0.0" width="86.5" height="34.5"/>
                             <state key="normal" title="Speaker"/>
                             <buttonConfiguration key="configuration" style="filled" title="Speaker"/>
                             <connections>
@@ -63,7 +63,7 @@
                     </subviews>
                 </stackView>
                 <view contentMode="scaleAspectFill" verticalHuggingPriority="100" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="100" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="td7-ye-SlH" userLabel="RemoteVideo" customClass="WebRTCView" customModule="WebRTC_Demo" customModuleProvider="target" colorLabel="IBBuiltInLabel-Purple">
-                    <rect key="frame" x="0.0" y="281.5" width="1024" height="1033.5"/>
+                    <rect key="frame" x="0.0" y="282" width="1024" height="1029.5"/>
                     <color key="backgroundColor" systemColor="systemTealColor"/>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="x8p-tz-88l">
@@ -114,24 +114,24 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleAspectFit" verticalHuggingPriority="100" verticalCompressionResistancePriority="100" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="R9P-4v-S7F">
-                    <rect key="frame" x="10" y="247.5" width="1004" height="34"/>
+                    <rect key="frame" x="10" y="247.5" width="1004" height="34.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signaling address:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-hx-1YW">
-                            <rect key="frame" x="0.0" y="0.0" width="139.5" height="34"/>
+                            <rect key="frame" x="0.0" y="0.0" width="139.5" height="34.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ws://10.115.11.214" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ME-Rq-PKN">
-                            <rect key="frame" x="149.5" y="0.0" width="765.5" height="34"/>
+                        <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="ws://10.115.224.89" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ME-Rq-PKN">
+                            <rect key="frame" x="149.5" y="0.0" width="755.5" height="34.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <stackView opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tUE-Yw-VjD">
-                            <rect key="frame" x="925" y="0.0" width="79" height="34"/>
+                            <rect key="frame" x="915" y="0.0" width="89" height="34.5"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73B-eg-qG9">
-                                    <rect key="frame" x="0.0" y="1.5" width="79" height="31"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="89" height="34.5"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" title="Connect"/>
                                     <connections>
